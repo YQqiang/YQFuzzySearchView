@@ -21,6 +21,28 @@
 
 @implementation ViewController
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+//    [self testAnimation];
+}
+
+- (IBAction)searchButtonAction:(UIButton *)sender {
+    NSArray *arr = @[@"哈哈", @"呵呵", @"你的样子", @"环境", @"工具", @"还有什么", @"电脑", @"手机", @"书籍", @"窗户", @"按键", @"呵呵", @"你的样子", @"环境", @"工具", @"还有什么", @"电脑", @"手机", @"书籍", @"窗户", @"按键", @"qfasdf", @"1123dsad", @"ljofjsd", @"8080ifd", @"1yugjfs"];
+    SearchTableView *searchTableView = [[SearchTableView alloc] initWithTitle:@"测试搜索标题" dataSource:arr currentSelectIndex:self.selectIndex];
+    [searchTableView setSelectResultBlock:^(NSInteger index){
+        NSLog(@">>>>>>>>>>>>>> index = %zd", index);
+        self.selectIndex = index;
+        [sender setTitle:arr[index] forState:UIControlStateNormal];
+    }];
+    [self presentViewController:searchTableView animated:YES completion:nil];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+//===========================以下代码与搜索无关============================
 - (UIView *)lightBlueView {
     if (!_lightBlueView) {
         _lightBlueView = [[UIView alloc] init];
@@ -37,23 +59,23 @@
     return _blueView;
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    self.lightBlueView.frame = CGRectMake(100, 40, 40, 40);
+- (void)testAnimation {
+    self.lightBlueView.frame = CGRectMake(self.view.center.x - 20, self.view.center.y + 100, 40, 40);
     self.lightBlueView.layer.cornerRadius = 20;
-    self.blueView.frame = CGRectMake(100, 40, 4, 4);
+    self.blueView.frame = CGRectMake(self.view.center.x - 2, self.view.center.y + 100, 4, 4);
     self.blueView.layer.cornerRadius = 2;
     self.blueView.center = self.lightBlueView.center;
     [self.view addSubview:self.lightBlueView];
     [self.view addSubview:self.blueView];
     [self.lightBlueView scaleAnimationWithDuration:1.5 scaleAnimationType:ScaleAnimationMinus multiple:0.1];
     [self.blueView scaleAnimationWithDuration:1.5 scaleAnimationType:ScaleAnimationPlus multiple:8];
-    [self.blueView alphaAnimationWithDuration:1.5 fromValue:0.1 toValue:1.0];
+    [self.blueView alphaAnimationWithDuration:1.5 fromValue:0.1 toValue:0.5];
     
     UIView *superView = [[UIView alloc] init];
     superView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:superView];
     superView.frame = CGRectMake(100, 200, 80, 70);
+    superView.center = self.view.center;
     
     UIView *firstV = [[UIView alloc] init];
     firstV.backgroundColor = [UIColor greenColor];
@@ -86,22 +108,5 @@
 - (void)starAnimation:(UIView *)aniView {
     [aniView scaleAnimationWithDuration:0.75 scaleAnimationType:ScaleAnimationMinus multiple:0.4];
 }
-
-- (IBAction)searchButtonAction:(UIButton *)sender {
-    NSArray *arr = @[@"哈哈", @"呵呵", @"你的样子", @"环境", @"工具", @"还有什么", @"电脑", @"手机", @"书籍", @"窗户", @"按键", @"呵呵", @"你的样子", @"环境", @"工具", @"还有什么", @"电脑", @"手机", @"书籍", @"窗户", @"按键", @"qfasdf", @"1123dsad", @"ljofjsd", @"8080ifd", @"1yugjfs"];
-    SearchTableView *searchTableView = [[SearchTableView alloc] initWithTitle:@"测试搜索标题" dataSource:arr currentSelectIndex:self.selectIndex];
-    [searchTableView setSelectResultBlock:^(NSInteger index){
-        NSLog(@">>>>>>>>>>>>>> index = %zd", index);
-        self.selectIndex = index;
-        [sender setTitle:arr[index] forState:UIControlStateNormal];
-    }];
-    [self presentViewController:searchTableView animated:YES completion:nil];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 
 @end
