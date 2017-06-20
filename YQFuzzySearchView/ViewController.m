@@ -88,10 +88,12 @@
 }
 
 - (IBAction)searchButtonAction:(UIButton *)sender {
-    SearchTableView *searchTableView = [[SearchTableView alloc] initWithTitle:@"测试搜索标题" dataSource:@[@"哈哈", @"呵呵", @"你的样子", @"环境", @"工具", @"还有什么", @"电脑", @"手机", @"书籍", @"窗户", @"按键", @"呵呵", @"你的样子", @"环境", @"工具", @"还有什么", @"电脑", @"手机", @"书籍", @"窗户", @"按键", @"qfasdf", @"1123dsad", @"ljofjsd", @"8080ifd", @"1yugjfs"] currentSelectIndex:self.selectIndex];
+    NSArray *arr = @[@"哈哈", @"呵呵", @"你的样子", @"环境", @"工具", @"还有什么", @"电脑", @"手机", @"书籍", @"窗户", @"按键", @"呵呵", @"你的样子", @"环境", @"工具", @"还有什么", @"电脑", @"手机", @"书籍", @"窗户", @"按键", @"qfasdf", @"1123dsad", @"ljofjsd", @"8080ifd", @"1yugjfs"];
+    SearchTableView *searchTableView = [[SearchTableView alloc] initWithTitle:@"测试搜索标题" dataSource:arr currentSelectIndex:self.selectIndex];
     [searchTableView setSelectResultBlock:^(NSInteger index){
         NSLog(@">>>>>>>>>>>>>> index = %zd", index);
         self.selectIndex = index;
+        [sender setTitle:arr[index] forState:UIControlStateNormal];
     }];
     [self presentViewController:searchTableView animated:YES completion:nil];
 }
